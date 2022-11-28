@@ -1,0 +1,25 @@
+<div class="container w-50 mb-5">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Select a Client
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <a class="dropdown-item" *ngFor="let client of clients" (click)="getProjectsOfClient(client)">{{client.clientName}}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="container w-50 mb-5">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Select a Project
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <a class="dropdown-item" *ngFor="let project of projects" (click)="setProjectDetail(project)">{{project.projectName}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

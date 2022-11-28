@@ -1,0 +1,22 @@
+{
+  "name": "ethcodebased",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.28",
+    "dotenv": "^8.6.0",
+    "solc": "^0.8.17",
+    "solidity-coverage": "^0.6.4",
+    "truffle": "^5.6.3",
+    "truffle-assertions": "^0.9.1"
+  }
+}

@@ -1,0 +1,11 @@
+<div class=" container card w-50">
+    <div class="card-body" *ngIf="projectDetail">
+      <h5 class="card-title">Project Details</h5>
+        <p class="mb-2">Project Name: {{projectDetail.projectName}}</p>
+        <p class="mb-2">Project Id: {{projectDetail.id}}</p>
+        <p class="mb-2">Project Address: {{projectDetail.address}}</p>
+    </div>
+    <div class="card-body" *ngIf="!projectDetail">
+        <h2>NO PROJECT FOUND</h2>
+    </div>
+</div>
