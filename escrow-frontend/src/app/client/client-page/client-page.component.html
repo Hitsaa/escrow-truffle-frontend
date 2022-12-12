@@ -1,34 +1,37 @@
-<form [formGroup]="clientForm" (ngSubmit)="registerClient()" class="container mt-5 mb-5 w-50 card">
-  <div class="card-body">
-    <h5 class="card-title">Register Client</h5>
-    <div class="form-group mb-2">
-      <label class="mb-2">Name</label>
-      <input type="email" class="form-control" id="name" placeholder="Enter Name" formControlName="clientName">    
+<div class="container w-50">
+  <form [formGroup]="clientForm" (ngSubmit)="registerClient()" class="mt-5 mb-5 card">
+    <div class="card-body">
+      <h5 class="card-title">Register Client</h5>
+      <div class="form-group mb-2">
+        <label class="mb-2">Name</label>
+        <input type="email" class="form-control" id="name" placeholder="Enter Name" formControlName="clientName">    
+      </div>
+      <div class="form-group mb-3">
+        <label class="mb-2">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber">
+      </div>
+      <button type="submit" class="btn btn-primary text-center">Submit</button>  
     </div>
-    <div class="form-group mb-3">
-      <label class="mb-2">Phone Number</label>
-      <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber">
+  </form>
+  
+  <div [ngClass]="selectedClient ? 'mb-3' : 'mb-5'">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Select a Client
+      </button>
+      <ul class="dropdown-menu">
+        <li>
+          <a class="dropdown-item" *ngFor="let client of clients" (click)="selectClient(client)">{{client.clientName}}</a>
+        </li>
+      </ul>
     </div>
-    <button type="submit" class="btn btn-primary text-center">Submit</button>  
-  </div>
-</form>
-
-<div class="container w-50 mb-5">
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Select a Client
-    </button>
-    <ul class="dropdown-menu">
-      <li>
-        <a class="dropdown-item" *ngFor="let client of clients" (click)="selectClient(client)">{{client.clientName}}</a>
-      </li>
-    </ul>
   </div>
 
-</div>
+  <div *ngIf="selectedClient != null" [ngClass]="selectedClient ? 'mb-3 display-6' : ''">
+    <b>Selected Client:</b> {{selectedClient}}
+  </div>
 
-
-<form [formGroup]="projectForm" class=" container card w-50" (ngSubmit)="createProject()">
+  <form [formGroup]="projectForm" class="card" (ngSubmit)="createProject()">
     <div class="card-body">
       <h5 class="card-title">Create Project</h5>
       <div class="form-group">
@@ -37,4 +40,6 @@
       </div>
       <button class="btn btn-primary" type="submit"> Create Project</button>
     </div>
-</form>
+  </form>
+
+</div>

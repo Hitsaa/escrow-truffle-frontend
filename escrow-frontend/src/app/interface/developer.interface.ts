@@ -1,9 +1,8 @@
 import { ProjectInterface } from "./project.interface";
 
-export interface ClientInterface {
+export interface DeveloperInterface {
     id: number,
-    clientName: string;
+    developerName: string;
     phoneNumber: string;
-    address: string;
     projects: ProjectInterface[];
 }

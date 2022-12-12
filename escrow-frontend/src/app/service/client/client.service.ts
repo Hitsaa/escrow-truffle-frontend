@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ClientInterface, ProjectInterface } from 'src/app/interface/client.interface';
+import { ClientInterface } from 'src/app/interface/client.interface';
+import { ProjectInterface } from 'src/app/interface/project.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class ClientService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  register(client: ClientInterface) {
+  registerClient(client: ClientInterface) {
     const url = environment.apiUrl+`client/register`;
     return this._httpClient.post<any>(url, client);
   }

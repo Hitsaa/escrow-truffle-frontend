@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ProjectInterface } from 'src/app/interface/client.interface';
+import { DeveloperInterface } from 'src/app/interface/developer.interface';
+import { DeveloperProjectInterface } from 'src/app/interface/DeveloperProject.interface';
+import { ProjectInterface } from 'src/app/interface/project.interface';
 import { ProjectService } from 'src/app/service/project/project.service';
 
 @Component({
@@ -14,30 +16,41 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     private projectService: ProjectService
   ) { }
 
-  // @Input()
-  // projectName: string = '';
-  // @Input()
-  // projectId!: number;
-  // @Input()
-  // address: string = '';
-
   projectDetail!: ProjectInterface;
+  developerDetail!: DeveloperInterface;
+
   private subscription = new Subscription();
 
   ngOnInit(): void {
-    console.log('on init called')
     const projectSubscription = this.projectService.projectDetail$.subscribe({
       next: (project: ProjectInterface) => {
-        console.log('in project',project);
         this.projectDetail = project;
       }
     })
 
+    const developerSubscription = this.projectService.developerDetails$.subscribe({
+      next: (developer: DeveloperInterface) => {
+        this.developerDetail = developer;
+      }
+    })
+
     this.subscription.add(projectSubscription);
+    this.subscription.add(developerSubscription);
+  }
+
+  proposeProject() {
+    let developerProject: DeveloperProjectInterface = {
+      developer: this.developerDetail,
+      project: this.projectDetail,      
+    }
+      this.projectService.proposeDeveloperProject(developerProject).subscribe({
+        next: (obj) => {
+          console.log(obj);
+        }
+      })
   }
 
   ngOnDestroy(): void {
-    console.log('on destroy called')
       this.subscription.unsubscribe();
   }
 

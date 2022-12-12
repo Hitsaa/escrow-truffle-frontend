@@ -137,13 +137,34 @@ export class Web3Service {
     });
   }
 
-  async deployContract(contractArtifacts: any, model: any, deployedContractArtifact?: any) {
+  async deployAlreadyDeployedContract(contractArtifacts: any, model: any, deployedContractArtifact?: any) {
     // 1st way is by using contractArtifacts first we have to extract the contract using abi
     // let deployedContract = new this.web3.eth.Contract(contractArtifacts["abi"]);
     // 2nd way is to use our deployedContractArtifact which we get from artifactsToContract function (define above), when we call it from client component file.
     // we get contract directly because it is already extracted from artifactsToContract function.
     let newContract: any;
     let deployedContract = deployedContractArtifact.contract;
+    console.log(deployedContract);
+    let parameter = {
+      from: model.account,
+      gas: this.web3.utils.toHex(1200000),
+      gasPrice: this.web3.utils.toHex(this.web3.utils.toWei('30', 'gwei'))
+    }
+    let bytecode = contractArtifacts["bytecode"];
+    let payload = {
+      data: bytecode,
+    }
+    await deployedContract.deploy(payload).send(parameter, (err: any, transactionHash: any) => {
+      console.log('Transaction Hash :', transactionHash);
+    }).on('confirmation', () => { }).then((newContractInstance: any) => {
+      newContract = newContractInstance;
+    });
+    return newContract;
+  }
+
+  async deployFreshContract(contractArtifacts: any, model: any) {
+    let newContract: any;
+    let deployedContract = new this.web3.eth.Contract(contractArtifacts["abi"]);
     console.log(deployedContract);
     let parameter = {
       from: model.account,
